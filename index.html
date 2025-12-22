@@ -12,6 +12,12 @@
         <div class="logo">
             <img src="logowhite.png" alt="Safe Steps Logo">
         </div>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        
         <ul>
             <li><a href="#home">Home</a></li>
             <li><a href="#features">Features</a></li>
@@ -362,6 +368,13 @@ autoSlideInterval = setInterval(nextPhoneSlide, 4000);
        document.body.removeChild(link);
    }
     </script>   
+    <script>const hamburger = document.getElementById('hamburger');
+        const navLinks = document.querySelector('nav ul');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        </script>
     
 </body>
 </html>
