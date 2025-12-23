@@ -115,6 +115,32 @@
         </div>
     </div>
 </section>
+<!-- Statistics Section -->
+<section class="statistics-section">
+    <div class="statistics-container">
+        <h2 class="statistics-title">Powered by Real Data</h2>
+        <p class="statistics-subtitle">Our AI model is trained on comprehensive crime data for accurate predictions</p>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">509,425</div>
+                <div class="stat-label">Crime Records Analyzed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">14</div>
+                <div class="stat-label">Crime Categories</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">2021-2024</div>
+                <div class="stat-label">Data Range</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">AI-Powered</div>
+                <div class="stat-label">Machine Learning Model</div>
+            </div>
+        </div>
+    </div>
+</section>
 
     <!-- Features Section -->
     <section class="features" id="about">
@@ -377,5 +403,160 @@ autoSlideInterval = setInterval(nextPhoneSlide, 4000);
         });
         </script>
     
+    <!-- Particle Background Canvas -->
+<canvas id="particles-canvas"></canvas>
+<div class="cursor-glow"></div>
+
+<!-- Complete Interactive JavaScript -->
+<script>
+// ============ PARTICLE BACKGROUND ANIMATION ============
+const canvas = document.getElementById('particles-canvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const particles = [];
+const particleCount = 100;
+
+class Particle {
+    constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 0.5;
+        this.speedX = Math.random() * 0.5 - 0.25;
+        this.speedY = Math.random() * 0.5 - 0.25;
+        this.opacity = Math.random() * 0.5 + 0.2;
+    }
+    
+    update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        
+        if (this.x > canvas.width) this.x = 0;
+        if (this.x < 0) this.x = canvas.width;
+        if (this.y > canvas.height) this.y = 0;
+        if (this.y < 0) this.y = canvas.height;
+    }
+    
+    draw() {
+        ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
+for (let i = 0; i < particleCount; i++) {
+    particles.push(new Particle());
+}
+
+function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    particles.forEach(particle => {
+        particle.update();
+        particle.draw();
+    });
+    
+    for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            
+            if (distance < 120) {
+                ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 * (1 - distance / 120)})`;
+                ctx.lineWidth = 0.5;
+                ctx.beginPath();
+                ctx.moveTo(particles[i].x, particles[i].y);
+                ctx.lineTo(particles[j].x, particles[j].y);
+                ctx.stroke();
+            }
+        }
+    }
+    
+    requestAnimationFrame(animateParticles);
+}
+
+animateParticles();
+
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+
+// ============ CURSOR GLOW EFFECT ============
+const cursorGlow = document.querySelector('.cursor-glow');
+document.addEventListener('mousemove', (e) => {
+    cursorGlow.style.left = e.clientX + 'px';
+    cursorGlow.style.top = e.clientY + 'px';
+});
+
+// ============ ANIMATED COUNTER ============
+function animateCounter(element, target, duration = 2000) {
+    const start = 0;
+    const increment = target / (duration / 16);
+    let current = start;
+    
+    const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+            element.textContent = target.toLocaleString();
+            clearInterval(timer);
+        } else {
+            element.textContent = Math.floor(current).toLocaleString();
+        }
+    }, 16);
+}
+
+const observerOptions = {
+    threshold: 0.5,
+    rootMargin: '0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const statNumber = entry.target.querySelector('.stat-number');
+            const text = statNumber.textContent;
+            
+            const match = text.match(/[\d,]+/);
+            if (match) {
+                const number = parseInt(match[0].replace(/,/g, ''));
+                statNumber.textContent = '0';
+                animateCounter(statNumber, number);
+            }
+            
+            entry.target.classList.add('animated');
+            observer.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.stat-card').forEach(card => {
+    observer.observe(card);
+});
+
+// ============ 3D TILT EFFECT FOR CARDS ============
+document.querySelectorAll('.feature-card, .team-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = (y - centerY) / 10;
+        const rotateY = (centerX - x) / 10;
+        
+        card.style.transform = `translateY(-12px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+    
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = 'translateY(0) rotateX(0) rotateY(0)';
+    });
+});
+</script>
 </body>
 </html>
