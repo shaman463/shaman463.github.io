@@ -88,6 +88,299 @@ nav ul li a:hover {
     box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
 }
 
+/* Statistics Section */
+.statistics-section {
+    padding: 80px 20px;
+    background: linear-gradient(180deg, #000 0%, #0a0a0a 100%);
+}
+
+.statistics-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.statistics-title {
+    font-size: clamp(1.8em, 4vw, 2.5em);
+    margin-bottom: 15px;
+    background: linear-gradient(135deg, #fff 0%, #888 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+}
+
+.statistics-subtitle {
+    font-size: clamp(1em, 2.5vw, 1.2em);
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 60px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+    backdrop-filter: blur(10px);
+    padding: 40px 25px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.4s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 60px rgba(255, 255, 255, 0.1);
+}
+
+.stat-number {
+    font-size: clamp(2.5em, 5vw, 3.5em);
+    font-weight: 700;
+    background: linear-gradient(135deg, #fff 0%, #aaa 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.stat-label {
+    font-size: clamp(0.9em, 2vw, 1.1em);
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 500;
+}
+
+/* ============ INTERACTIVE UI ENHANCEMENTS ============ */
+
+/* Particle Canvas */
+#particles-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.4;
+}
+
+/* Cursor Glow */
+.cursor-glow {
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s;
+    z-index: 0;
+}
+
+/* Nav Link Hover Effect */
+nav ul li a {
+    position: relative;
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #fff, transparent);
+    transition: transform 0.3s ease;
+}
+
+nav ul li a:hover::after {
+    transform: translateX(-50%) scaleX(1);
+}
+
+/* Enhanced Download Button */
+.download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.4);
+}
+
+/* CTA Button Ripple Effect */
+.cta-button {
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.cta-button:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+/* Pulsing Animation */
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 8px 30px rgba(255, 255, 255, 0.2);
+    }
+    50% {
+        box-shadow: 0 8px 40px rgba(255, 255, 255, 0.4);
+    }
+}
+
+.cta-button {
+    animation: pulse 2s infinite;
+}
+
+/* 3D Card Effects */
+.feature-card, .team-card {
+    transform-style: preserve-3d;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.feature-card:hover, .team-card:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 25px 80px rgba(255, 255, 255, 0.15);
+}
+
+/* Floating Animation for Step Numbers */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.step-number {
+    animation: float 3s ease-in-out infinite;
+}
+
+.step-card:nth-child(1) .step-number { animation-delay: 0s; }
+.step-card:nth-child(2) .step-number { animation-delay: 0.2s; }
+.step-card:nth-child(3) .step-number { animation-delay: 0.4s; }
+.step-card:nth-child(4) .step-number { animation-delay: 0.6s; }
+
+
+/* Stat Cards Entrance Animation */
+.stat-card {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.stat-card.animated {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Phone Frame Glow on Hover */
+.phone-frame:hover {
+    box-shadow: 
+        0 30px 80px rgba(0, 0, 0, 0.8),
+        inset 0 0 0 2px rgba(255, 255, 255, 0.2),
+        0 0 40px rgba(255, 255, 255, 0.1);
+}
+
+/* Store Button Hover */
+.store-button, .github-button {
+    position: relative;
+    overflow: hidden;
+}
+
+.store-button::before, .github-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.1);
+    transform: translate(-50%, -50%);
+    transition: width 0.5s, height 0.5s;
+}
+
+.store-button:hover::before, .github-button:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+/* Icon Rotation on Hover */
+.feature-icon, .github-icon {
+    transition: all 0.4s ease;
+}
+
+.feature-card:hover .feature-icon,
+.github-card:hover .github-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Slider Arrow Pulse */
+@keyframes arrowPulse {
+    0%, 100% {
+        transform: translateY(-50%) scale(1);
+    }
+    50% {
+        transform: translateY(-50%) scale(1.1);
+    }
+}
+
+.slider-arrow {
+    animation: arrowPulse 2s ease-in-out infinite;
+}
+
+.slider-arrow:hover {
+    animation: none;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+    .cursor-glow {
+        display: none;
+    }
+    
+    #particles-canvas {
+        opacity: 0.2;
+    }
+    
+    nav {
+        flex-wrap: wrap;
+        padding: 12px 18px;
+        border-radius: 22px;
+    }
+
+    nav ul {
+        width: 100%;
+        flex-direction: column;
+        gap: 18px;
+        margin-top: 18px;
+        display: none;
+    }
+
+    nav ul.active {
+        display: flex;
+    }
+
+    .hamburger {
+        display: flex;
+        margin-left: auto;
+    }
+}
 /* ===== MOBILE NAVBAR FIX (NO DESKTOP CHANGE) ===== */
 
 .hamburger {
@@ -938,6 +1231,8 @@ nav ul li a:hover {
         transform: translateY(0) scale(1);
     }
 }
+
+
 
 .modal-header {
     margin-bottom: 16px;
